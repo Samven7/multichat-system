@@ -39,8 +39,8 @@ public class ClientFileThread extends Thread{
 				double curLength = 0;
 				// 提示框选择结果，0为确定，1位取消
 				if(result == 0){
-					out.println("【" + userName + "选择了接收文件！】");
-					out.flush();
+//					out.println("【" + userName + "选择了接收文件！】");
+//					out.flush();
 					File file = new File("C:\\Users\\Samven\\Desktop\\接受文件\\(" +
 							 userName + ")" + textName);
 					fileWriter = new DataOutputStream(new FileOutputStream(file));
@@ -48,13 +48,13 @@ public class ClientFileThread extends Thread{
 						fileWriter.write(buff, 0, length);
 						fileWriter.flush();
 						curLength += length;
-						out.println("【接收进度:" + curLength/totleLength*100 + "%】");
-						out.flush();
+//						out.println("【接收进度:" + curLength/totleLength*100 + "%】");
+//						out.flush();
 						if(curLength == totleLength) {  // 强制结束
 							break;
 						}
 					}
-					out.println("【" + userName + "成功接收文件！】");
+					out.println("【" + userName + "接收了文件！】");
 					out.flush();
 					// 提示文件存放地址
 					JOptionPane.showMessageDialog(chatViewJFrame, "文件存放地址：\n" +
