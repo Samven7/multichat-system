@@ -52,8 +52,7 @@ class ServerReadAndPrint extends Thread{
 			while (true) {
 				String str = in.readLine();
 				// 发送给所有客户端
-				for(int i = 0; i < Server.list.size(); i++) {
-					Socket socket = Server.list.get(i);
+				for(Socket socket: Server.list) {
 					out = new PrintWriter(socket.getOutputStream());  // 对每个客户端新建相应的socket套接字
 					if(socket == nowSocket) {  // 发送给当前客户端
 						out.println("(你)" + str);

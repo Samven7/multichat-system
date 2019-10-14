@@ -35,7 +35,7 @@ public class ChatView {
 		
 		text = new JTextField(20);
 		JButton button = new JButton("发送");
-		JButton openFileBtn = new JButton("打开文件");
+		JButton openFileBtn = new JButton("发送文件");
 		jp.add(text);
 		jp.add(button);
 		jp.add(openFileBtn);

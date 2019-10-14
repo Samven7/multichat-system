@@ -38,25 +38,35 @@ class FileReadAndWrite extends Thread {
 		try {
 			input = new DataInputStream(nowSocket.getInputStream());  // 输入流
 			while (true) {
-				String path = input.readUTF();  // 接受文件路径
-				File file = new File(path);
-				for(int i = 0; i < ServerFileThread.list.size(); i++) {
-					Socket socket = ServerFileThread.list.get(i);
+				// 获取文件名字和文件长度
+				String textName = input.readUTF();
+				long textLength = input.readLong();
+				// 发送文件名字和文件长度给所有客户端
+				for(Socket socket: ServerFileThread.list) {
 					output = new DataOutputStream(socket.getOutputStream());  // 输出流
-					DataInputStream fileReader = new DataInputStream(new FileInputStream(file));
 					if(socket != nowSocket) {  // 发送给其它客户端
-						output.writeUTF(file.getName());  // 发送文件名字
+						output.writeUTF(textName);
 						output.flush();
-						output.writeLong(file.length());  // 发送文件长度
+						output.writeLong(textLength);
 						output.flush();
-						int length = -1;
-						byte[] buff = new byte[1024];
-						while ((length = fileReader.read(buff)) > 0) {  // 发送内容
+					}
+				}
+				// 发送文件内容
+				int length = -1;
+				long curLength = 0;
+				byte[] buff = new byte[1024];
+				while ((length = input.read(buff)) > 0) {
+					curLength += length;
+					for(Socket socket: ServerFileThread.list) {
+						output = new DataOutputStream(socket.getOutputStream());  // 输出流
+						if(socket != nowSocket) {  // 发送给其它客户端
 							output.write(buff, 0, length);
 							output.flush();
 						}
 					}
-					fileReader.close();
+					if(curLength == textLength) {  // 强制退出
+						break;
+					}
 				}
 			}
 		} catch (Exception e) {
