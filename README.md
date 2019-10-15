@@ -9,13 +9,14 @@ CSDN博客地址：<https://blog.csdn.net/qq_42780289/article/details/102556693>
 
 ## 1.1 初始化
 
-- 登录
+- 服务器端（先运行Server.java）
+
+![Snipaste_2019-10-14_21-07-09](https://tva4.sinaimg.cn/large/006VrJAJly1g7y1anlsfgj30bx0dojre.jpg)
+
+- 登录界面（接着运行Client.java，运行一次生成一个登录界面）
 
 ![Snipaste_2019-10-14_21-08-44](https://tva2.sinaimg.cn/large/006VrJAJly1g7y1bw0lzxj30hi0c6mxk.jpg)
 
-- 服务器
-
-![Snipaste_2019-10-14_21-07-09](https://tva4.sinaimg.cn/large/006VrJAJly1g7y1anlsfgj30bx0dojre.jpg)
 
 ## 1.2 登录成功
 
@@ -25,8 +26,10 @@ CSDN博客地址：<https://blog.csdn.net/qq_42780289/article/details/102556693>
 
 ## 1.3 发送信息
 
-![Snipaste_2019-10-14_22-01-35](https://tvax4.sinaimg.cn/large/006VrJAJgy1g7y2tjhbprj30uq0dywfb.jpg)
+![Snipaste_2019-10-14_22-01-35](https://tva3.sinaimg.cn/large/006VrJAJly1g7ys8k2xzjj30uq0dywfb.jpg)
 
 ## 1.4 发送文件
+
+打开文件我设置了默认路径是在桌面。接受文件需要先在桌面创建一个名为“接收文件”的文件夹，用于存放所有用户接收的文件。
 
 ![Snipaste_2019-10-14_22-05-00](https://tva4.sinaimg.cn/large/006VrJAJgy1g7y2x3smcij30li0ekmy6.jpg)
