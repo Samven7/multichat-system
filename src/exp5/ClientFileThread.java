@@ -40,8 +40,11 @@ public class ClientFileThread extends Thread{
 				if(result == 0){
 //					out.println("【" + userName + "选择了接收文件！】");
 //					out.flush();
-					File file = new File("C:\\Users\\Samven\\Desktop\\接受文件\\(" +
-							 userName + ")" + textName);
+					File userFile = new File("C:\\Users\\Samven\\Desktop\\接受文件\\" + userName);
+					if(!userFile.exists()) {  // 新建当前用户的文件夹
+						userFile.mkdir();
+					}
+					File file = new File("C:\\Users\\Samven\\Desktop\\接受文件\\" + userName + "\\"+ textName);
 					fileWriter = new DataOutputStream(new FileOutputStream(file));
 					while((length = fileIn.read(buff)) > 0) {  // 把文件写进本地
 						fileWriter.write(buff, 0, length);
@@ -57,8 +60,8 @@ public class ClientFileThread extends Thread{
 					out.flush();
 					// 提示文件存放地址
 					JOptionPane.showMessageDialog(chatViewJFrame, "文件存放地址：\n" +
-							"C:\\Users\\Samven\\Desktop\\接受文件\\(" +
-							userName + ")" + textName, "提示", JOptionPane.INFORMATION_MESSAGE);
+							"C:\\Users\\Samven\\Desktop\\接受文件\\" +
+							userName + "\\" + textName, "提示", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {  // 不接受文件
 					while((length = fileIn.read(buff)) > 0) {
