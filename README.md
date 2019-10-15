@@ -26,7 +26,7 @@ CSDN博客地址：<https://blog.csdn.net/qq_42780289/article/details/102556693>
 
 ## 1.3 发送信息
 
-![Snipaste_2019-10-14_22-01-35](https://tvax4.sinaimg.cn/large/006VrJAJgy1g7y2tjhbprj30uq0dywfb.jpg)
+![Snipaste_2019-10-14_22-01-35](https://tva3.sinaimg.cn/large/006VrJAJly1g7ys8k2xzjj30uq0dywfb.jpg)
 
 ## 1.4 发送文件
 
