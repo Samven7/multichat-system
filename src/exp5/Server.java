@@ -7,66 +7,66 @@ import java.util.*;
 public class Server{
 	static ServerSocket server = null;
 	static Socket socket = null;
-	static List<Socket> list = new ArrayList<Socket>();  // ´æ´¢¿Í»§¶Ë
+	static List<Socket> list = new ArrayList<Socket>();  // å­˜å‚¨å®¢æˆ·ç«¯
 	
 	public static void main(String[] args) {
-		MutiChat mutiChat = new MutiChat();  // ĞÂ½¨ÁÄÌìÏµÍ³½çÃæ
+		MultiChat multiChat = new MultiChat();  // æ–°å»ºèŠå¤©ç³»ç»Ÿç•Œé¢
 		try {
-			// ÔÚ·şÎñÆ÷¶Ë¶Ô¿Í»§¶Ë¿ªÆôÎÄ¼ş´«ÊäµÄÏß³Ì
+			// åœ¨æœåŠ¡å™¨ç«¯å¯¹å®¢æˆ·ç«¯å¼€å¯æ–‡ä»¶ä¼ è¾“çš„çº¿ç¨‹
 			ServerFileThread serverFileThread = new ServerFileThread();
 			serverFileThread.start();
-			server = new ServerSocket(8081);  // ·şÎñÆ÷¶ËÌ×½Ó×Ö£¨Ö»ÄÜ½¨Á¢Ò»´Î£©
-			// µÈ´ıÁ¬½Ó²¢¿ªÆôÏàÓ¦Ïß³Ì
+			server = new ServerSocket(8081);  // æœåŠ¡å™¨ç«¯å¥—æ¥å­—ï¼ˆåªèƒ½å»ºç«‹ä¸€æ¬¡ï¼‰
+			// ç­‰å¾…è¿æ¥å¹¶å¼€å¯ç›¸åº”çº¿ç¨‹
 			while (true) {
-				socket = server.accept();  // µÈ´ıÁ¬½Ó
-				list.add(socket);  // Ìí¼Óµ±Ç°¿Í»§¶Ëµ½ÁĞ±í
-				// ÔÚ·şÎñÆ÷¶Ë¶Ô¿Í»§¶Ë¿ªÆôÏàÓ¦µÄÏß³Ì
-				ServerReadAndPrint readAndPrint = new ServerReadAndPrint(socket, mutiChat);
+				socket = server.accept();  // ç­‰å¾…è¿æ¥
+				list.add(socket);  // æ·»åŠ å½“å‰å®¢æˆ·ç«¯åˆ°åˆ—è¡¨
+				// åœ¨æœåŠ¡å™¨ç«¯å¯¹å®¢æˆ·ç«¯å¼€å¯ç›¸åº”çš„çº¿ç¨‹
+				ServerReadAndPrint readAndPrint = new ServerReadAndPrint(socket, multiChat);
 				readAndPrint.start();
 			}
 		} catch (IOException e1) {
-			e1.printStackTrace();  // ³öÏÖÒì³£Ôò´òÓ¡³öÒì³£µÄÎ»ÖÃ
+			e1.printStackTrace();  // å‡ºç°å¼‚å¸¸åˆ™æ‰“å°å‡ºå¼‚å¸¸çš„ä½ç½®
 		}
 	}
 }
 
 /**
- *  ·şÎñÆ÷¶Ë¶ÁĞ´ÀàÏß³Ì
- *  ÓÃÓÚ·şÎñÆ÷¶Ë¶ÁÈ¡¿Í»§¶ËµÄĞÅÏ¢£¬²¢°ÑĞÅÏ¢·¢ËÍ¸øËùÓĞ¿Í»§¶Ë
+ *  æœåŠ¡å™¨ç«¯è¯»å†™ç±»çº¿ç¨‹
+ *  ç”¨äºæœåŠ¡å™¨ç«¯è¯»å–å®¢æˆ·ç«¯çš„ä¿¡æ¯ï¼Œå¹¶æŠŠä¿¡æ¯å‘é€ç»™æ‰€æœ‰å®¢æˆ·ç«¯
  */
 class ServerReadAndPrint extends Thread{
 	Socket nowSocket = null;
-	MutiChat mutiChat = null;
+	MultiChat multiChat = null;
 	BufferedReader in =null;
 	PrintWriter out = null;
-	// ¹¹Ôìº¯Êı
-	public ServerReadAndPrint(Socket s, MutiChat mutiChat) {
-		this.mutiChat = mutiChat;  // »ñÈ¡¶àÈËÁÄÌìÏµÍ³½çÃæ
-		this.nowSocket = s;  // »ñÈ¡µ±Ç°¿Í»§¶Ë
+	// æ„é€ å‡½æ•°
+	public ServerReadAndPrint(Socket s, MultiChat multiChat) {
+		this.multiChat = multiChat;  // è·å–å¤šäººèŠå¤©ç³»ç»Ÿç•Œé¢
+		this.nowSocket = s;  // è·å–å½“å‰å®¢æˆ·ç«¯
 	}
 	
 	public void run() {
 		try {
-			in = new BufferedReader(new InputStreamReader(nowSocket.getInputStream()));  // ÊäÈëÁ÷
-			// »ñÈ¡¿Í»§¶ËĞÅÏ¢²¢°ÑĞÅÏ¢·¢ËÍ¸øËùÓĞ¿Í»§¶Ë
+			in = new BufferedReader(new InputStreamReader(nowSocket.getInputStream()));  // è¾“å…¥æµ
+			// è·å–å®¢æˆ·ç«¯ä¿¡æ¯å¹¶æŠŠä¿¡æ¯å‘é€ç»™æ‰€æœ‰å®¢æˆ·ç«¯
 			while (true) {
 				String str = in.readLine();
-				// ·¢ËÍ¸øËùÓĞ¿Í»§¶Ë
+				// å‘é€ç»™æ‰€æœ‰å®¢æˆ·ç«¯
 				for(Socket socket: Server.list) {
-					out = new PrintWriter(socket.getOutputStream());  // ¶ÔÃ¿¸ö¿Í»§¶ËĞÂ½¨ÏàÓ¦µÄsocketÌ×½Ó×Ö
-					if(socket == nowSocket) {  // ·¢ËÍ¸øµ±Ç°¿Í»§¶Ë
-						out.println("(Äã)" + str);
+					out = new PrintWriter(socket.getOutputStream());  // å¯¹æ¯ä¸ªå®¢æˆ·ç«¯æ–°å»ºç›¸åº”çš„socketå¥—æ¥å­—
+					if(socket == nowSocket) {  // å‘é€ç»™å½“å‰å®¢æˆ·ç«¯
+						out.println("(ä½ )" + str);
 					}
-					else {  // ·¢ËÍ¸øÆäËü¿Í»§¶Ë
+					else {  // å‘é€ç»™å…¶å®ƒå®¢æˆ·ç«¯
 						out.println(str);
 					}
-					out.flush();  // Çå¿ÕoutÖĞµÄ»º´æ
+					out.flush();  // æ¸…ç©ºoutä¸­çš„ç¼“å­˜
 				}
-				// µ÷ÓÃ×Ô¶¨Òåº¯ÊıÊä³öµ½Í¼ĞÎ½çÃæ
-				mutiChat.setTextArea(str);
+				// è°ƒç”¨è‡ªå®šä¹‰å‡½æ•°è¾“å‡ºåˆ°å›¾å½¢ç•Œé¢
+				multiChat.setTextArea(str);
 			}
 		} catch (Exception e) {
-			Server.list.remove(nowSocket);  // Ïß³Ì¹Ø±Õ£¬ÒÆ³ıÏàÓ¦Ì×½Ó×Ö
+			Server.list.remove(nowSocket);  // çº¿ç¨‹å…³é—­ï¼Œç§»é™¤ç›¸åº”å¥—æ¥å­—
 		}
 	}
 }
